@@ -35,7 +35,7 @@ app.mount("/static", StaticFiles(directory=str(BASE_DIR / "static")), name="stat
 
 @app.get("/", response_class=HTMLResponse)
 async def index(request: Request) -> HTMLResponse:
-    return templates.TemplateResponse("index.html", {"request": request})
+    return templates.TemplateResponse(request, "index.html", {})
 
 
 @app.get("/setup", response_class=HTMLResponse)
@@ -54,8 +54,9 @@ async def setup_page(request: Request) -> HTMLResponse:
         ("Stripe secret key", bool(settings.stripe_secret_key)),
     ]
     return templates.TemplateResponse(
+        request,
         "setup.html",
-        {"request": request, "checks": checks},
+        {"checks": checks},
     )
 
 
