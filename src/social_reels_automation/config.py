@@ -10,6 +10,9 @@ from pydantic_settings import BaseSettings, SettingsConfigDict
 class Settings(BaseSettings):
     model_config = SettingsConfigDict(env_file=".env", env_file_encoding="utf-8", extra="ignore")
 
+    openai_api_key: str | None = Field(default=None, alias="OPENAI_API_KEY")
+    gemini_api_key: str | None = Field(default=None, alias="GEMINI_API_KEY")
+    gemini_model: str = Field(default="gemini-2.5-flash", alias="GEMINI_MODEL")
     anthropic_api_key: str | None = Field(default=None, alias="ANTHROPIC_API_KEY")
     anthropic_model: str = Field(default="claude-sonnet-4-6", alias="ANTHROPIC_MODEL")
 
@@ -27,6 +30,11 @@ class Settings(BaseSettings):
     youtube_token_file: Path = Field(default=Path("./youtube_token.json"), alias="YOUTUBE_TOKEN_FILE")
     youtube_category_id: str = Field(default="22", alias="YOUTUBE_CATEGORY_ID")
     publish_privacy_status: str = Field(default="public", alias="PUBLISH_PRIVACY_STATUS")
+    google_sheets_spreadsheet_id: str | None = Field(default=None, alias="GOOGLE_SHEETS_SPREADSHEET_ID")
+    gmail_sender_email: str | None = Field(default=None, alias="GMAIL_SENDER_EMAIL")
+    stripe_secret_key: str | None = Field(default=None, alias="STRIPE_SECRET_KEY")
+    stripe_publishable_key: str | None = Field(default=None, alias="STRIPE_PUBLISHABLE_KEY")
+    stripe_webhook_secret: str | None = Field(default=None, alias="STRIPE_WEBHOOK_SECRET")
 
     brand_name: str = Field(default="Your Brand", alias="BRAND_NAME")
     brand_niche: str = Field(default="personal branding", alias="BRAND_NICHE")

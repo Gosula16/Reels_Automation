@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from pathlib import Path
 
-from social_reels_automation.clients.anthropic_client import AnthropicClient
+from social_reels_automation.clients.content_strategy_client import ContentStrategyClient
 from social_reels_automation.clients.higgsfield_client import HiggsfieldClient
 from social_reels_automation.clients.instagram_client import InstagramClient
 from social_reels_automation.clients.trend_client import TrendClient
@@ -12,7 +12,7 @@ from social_reels_automation.models import PipelineResponse, PublishResult, Reel
 
 class ContentPipeline:
     def __init__(self) -> None:
-        self.anthropic = AnthropicClient()
+        self.strategy = ContentStrategyClient()
         self.higgsfield = HiggsfieldClient()
         self.instagram = InstagramClient()
         self.trends = TrendClient()
@@ -20,7 +20,7 @@ class ContentPipeline:
 
     async def run(self, reel_request: ReelRequest) -> PipelineResponse:
         trend_snapshots = await self.trends.fetch_daily_signals()
-        brief = await self.anthropic.create_content_brief(reel_request, trend_snapshots)
+        brief = await self.strategy.create_content_brief(reel_request, trend_snapshots)
         higgsfield_result = await self.higgsfield.generate_video(brief)
         output_dir = Path.cwd() / "generated"
         local_video = await self.higgsfield.download_asset(higgsfield_result.asset_url, output_dir)

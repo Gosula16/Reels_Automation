@@ -12,7 +12,7 @@ short_description: Daily reels and shorts automation with AI.
 
 This service helps automate a content workflow:
 
-1. Ask Claude to generate a short-form content angle, script, caption, hashtags, CTA, and metadata.
+1. Ask Gemini first, with Claude fallback, to generate a short-form content angle, script, caption, hashtags, CTA, and metadata.
 2. Send the visual prompt to Higgsfield to render a vertical video asset.
 3. Download the generated video locally.
 4. Publish the result to YouTube Shorts.
@@ -53,6 +53,7 @@ uvicorn social_reels_automation.main:app --reload
 ```
 
 Then open [http://127.0.0.1:8000](http://127.0.0.1:8000) to use the website dashboard.
+Open [http://127.0.0.1:8000/setup](http://127.0.0.1:8000/setup) to check which secrets are configured.
 
 ## Deploy to Hugging Face
 
@@ -165,3 +166,23 @@ This helps the app bias toward better audience-fit ideas instead of broad but ir
 ## Safe credential handling
 
 Do not paste secrets into source files. Keep them in `.env`, which is meant for local configuration only.
+
+If you deploy on Hugging Face Spaces, put the same values in Space Secrets instead of committing them to the repo.
+
+## Credentials checklist
+
+For the current automation stack, the useful secrets are:
+
+- `ANTHROPIC_API_KEY` or `OPENAI_API_KEY` or `GEMINI_API_KEY`
+- Gemini is preferred automatically when `GEMINI_API_KEY` is present, and Claude is used as fallback
+- `INSTAGRAM_ACCESS_TOKEN`
+- `INSTAGRAM_IG_USER_ID`
+- `YOUTUBE_CLIENT_SECRETS_FILE` and runtime token file
+- optional `GOOGLE_SHEETS_SPREADSHEET_ID`
+- optional `GMAIL_SENDER_EMAIL`
+- optional Stripe keys for revenue flows
+
+Notes:
+
+- `INSTAGRAM_IG_USER_ID` must be the numeric Instagram Business/Creator account ID, not the `@username`
+- YouTube uploads require the OAuth client secrets JSON file, not only the client ID

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Setup</title>
+  <link rel="stylesheet" href="/static/styles.css" />
+</head>
+<body>
+  <main class="page">
+    <section class="hero">
+      <div class="eyebrow">Secrets Setup</div>
+      <h1>Configuration status without exposing any secret values.</h1>
+      <p class="lede">
+        Gemini is used first for content generation, and Claude is the fallback. This page only shows
+        whether each required item is configured correctly.
+      </p>
+      <div class="hero-actions">
+        <a class="button primary" href="/">Back to Dashboard</a>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>Checks</h2>
+      <div class="stack">
+        {% for label, ok in checks %}
+        <div><strong>{{ "Ready" if ok else "Missing" }}</strong> {{ label }}</div>
+        {% endfor %}
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>Expected Secret Names</h2>
+      <div class="stack muted">
+        <div>`GEMINI_API_KEY`, `GEMINI_MODEL`, `ANTHROPIC_API_KEY`, `ANTHROPIC_MODEL`</div>
+        <div>`HIGGSFIELD_API_KEY`, `HIGGSFIELD_API_SECRET`</div>
+        <div>`INSTAGRAM_ACCESS_TOKEN`, `INSTAGRAM_IG_USER_ID`</div>
+        <div>`YOUTUBE_CLIENT_SECRETS_FILE`, `YOUTUBE_TOKEN_FILE`</div>
+        <div>`GOOGLE_SHEETS_SPREADSHEET_ID`, `GMAIL_SENDER_EMAIL`</div>
+        <div>`STRIPE_SECRET_KEY`, `STRIPE_PUBLISHABLE_KEY`, `STRIPE_WEBHOOK_SECRET`</div>
+      </div>
+    </section>
+  </main>
+</body>
+</html>
