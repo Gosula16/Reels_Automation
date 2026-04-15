@@ -40,7 +40,7 @@ class Settings(BaseSettings):
     brand_niche: str = Field(default="personal branding", alias="BRAND_NICHE")
     target_audience: str = Field(default="founders and creators", alias="TARGET_AUDIENCE")
     default_language: str = Field(default="en", alias="DEFAULT_LANGUAGE")
-    default_timezone: str = Field(default="Asia/Calcutta", alias="DEFAULT_TIMEZONE")
+    default_timezone: str = Field(default="Asia/Kolkata", alias="DEFAULT_TIMEZONE")
     trend_region: str = Field(default="IN", alias="TREND_REGION")
     automation_enabled: bool = Field(default=True, alias="AUTOMATION_ENABLED")
     automation_post_times: str = Field(default="10:00,18:00", alias="AUTOMATION_POST_TIMES")
