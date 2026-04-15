@@ -1,0 +1,152 @@
+:root {
+  --bg: #f4efe6;
+  --panel: rgba(255, 252, 247, 0.88);
+  --text: #182028;
+  --muted: #55606d;
+  --line: rgba(24, 32, 40, 0.12);
+  --accent: #d94829;
+  --accent-2: #116466;
+  --shadow: 0 18px 60px rgba(17, 29, 45, 0.12);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: Georgia, "Times New Roman", serif;
+  color: var(--text);
+  background:
+    radial-gradient(circle at top left, rgba(217, 72, 41, 0.18), transparent 30%),
+    radial-gradient(circle at top right, rgba(17, 100, 102, 0.18), transparent 28%),
+    linear-gradient(180deg, #fbf7f1 0%, #efe6d7 100%);
+}
+
+.page {
+  width: min(1120px, calc(100% - 32px));
+  margin: 0 auto;
+  padding: 32px 0 48px;
+}
+
+.hero,
+.card {
+  background: var(--panel);
+  backdrop-filter: blur(10px);
+  border: 1px solid var(--line);
+  border-radius: 24px;
+  box-shadow: var(--shadow);
+}
+
+.hero {
+  padding: 32px;
+  margin-bottom: 24px;
+}
+
+.eyebrow {
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  font-size: 12px;
+  color: var(--accent-2);
+  margin-bottom: 12px;
+}
+
+h1,
+h2 {
+  margin: 0 0 12px;
+  line-height: 1.05;
+}
+
+h1 {
+  font-size: clamp(2.2rem, 5vw, 4.6rem);
+  max-width: 12ch;
+}
+
+h2 {
+  font-size: 1.5rem;
+}
+
+.lede,
+.muted,
+label {
+  color: var(--muted);
+}
+
+.hero-actions,
+.grid {
+  display: grid;
+  gap: 16px;
+}
+
+.hero-actions {
+  grid-template-columns: repeat(auto-fit, minmax(180px, max-content));
+  margin-top: 24px;
+}
+
+.grid {
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  margin-bottom: 24px;
+}
+
+.card {
+  padding: 24px;
+}
+
+.stack {
+  display: grid;
+  gap: 12px;
+}
+
+input {
+  width: 100%;
+  margin-top: 6px;
+  padding: 12px 14px;
+  border-radius: 14px;
+  border: 1px solid var(--line);
+  background: rgba(255, 255, 255, 0.82);
+  font: inherit;
+}
+
+.button {
+  border: none;
+  border-radius: 999px;
+  padding: 12px 18px;
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.button.primary {
+  background: var(--accent);
+  color: white;
+}
+
+.button.secondary {
+  background: transparent;
+  color: var(--accent-2);
+  border: 1px solid rgba(17, 100, 102, 0.25);
+}
+
+.result {
+  margin: 0;
+  min-height: 200px;
+  overflow: auto;
+  padding: 18px;
+  border-radius: 18px;
+  background: #171d22;
+  color: #f6f2ea;
+  font-family: Consolas, "Courier New", monospace;
+  font-size: 13px;
+}
+
+@media (max-width: 680px) {
+  .page {
+    width: min(100% - 20px, 1120px);
+    padding-top: 20px;
+  }
+
+  .hero,
+  .card {
+    border-radius: 20px;
+  }
+}

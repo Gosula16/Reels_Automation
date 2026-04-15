@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Reels Automation</title>
+  <link rel="stylesheet" href="/static/styles.css" />
+</head>
+<body>
+  <main class="page">
+    <section class="hero">
+      <div class="eyebrow">Instagram Reels + YouTube Shorts Automation</div>
+      <h1>Plan, generate, schedule, and publish two short videos a day.</h1>
+      <p class="lede">
+        This dashboard uses Claude for hooks and captions, Higgsfield for video generation,
+        and official Instagram and YouTube publishing flows. It prioritizes audience-fit topics
+        instead of random posting.
+      </p>
+      <div class="hero-actions">
+        <button id="runDailyButton" class="button primary">Run Today’s 2 Posts</button>
+        <button id="refreshStatusButton" class="button secondary">Refresh Status</button>
+      </div>
+    </section>
+
+    <section class="grid">
+      <div class="card">
+        <h2>Manual Reel</h2>
+        <form id="manualForm" class="stack">
+          <label>
+            Topic
+            <input name="topic" value="3 AI growth ideas for creators this week" required />
+          </label>
+          <label>
+            Goal
+            <input name="goal" value="increase qualified reach and engagement" />
+          </label>
+          <label>
+            Style
+            <input name="style" value="cinematic, fast-paced, premium, mobile-first" />
+          </label>
+          <label>
+            Call to action
+            <input name="call_to_action" value="Follow for daily creator growth strategies" />
+          </label>
+          <label>
+            Duration (seconds)
+            <input name="duration_seconds" type="number" min="8" max="60" value="20" />
+          </label>
+          <button type="submit" class="button primary">Generate and Publish</button>
+        </form>
+      </div>
+
+      <div class="card">
+        <h2>Automation</h2>
+        <div id="automationStatus" class="stack muted">Loading status...</div>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>Latest Result</h2>
+      <pre id="resultBox" class="result">No run yet.</pre>
+    </section>
+  </main>
+
+  <script src="/static/app.js"></script>
+</body>
+</html>
