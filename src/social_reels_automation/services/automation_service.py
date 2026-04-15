@@ -3,7 +3,7 @@ from __future__ import annotations
 import asyncio
 from collections import deque
 from datetime import datetime
-from zoneinfo import ZoneInfo
+from zoneinfo import ZoneInfo, ZoneInfoNotFoundError
 
 from apscheduler.schedulers.asyncio import AsyncIOScheduler
 
@@ -28,7 +28,7 @@ class AutomationService:
         if self.scheduler and self.scheduler.running:
             return
 
-        timezone = ZoneInfo(settings.default_timezone)
+        timezone = self._resolve_timezone(settings.default_timezone)
         self.scheduler = AsyncIOScheduler(timezone=timezone)
         for post_time in settings.parsed_post_times[:2]:
             hour_str, minute_str = post_time.split(":", maxsplit=1)
@@ -73,7 +73,7 @@ class AutomationService:
                 detail = str(exc)
                 status = "failed"
 
-            now = datetime.now(ZoneInfo(settings.default_timezone)).isoformat()
+            now = datetime.now(self._resolve_timezone(settings.default_timezone)).isoformat()
             self.recent_runs.appendleft(
                 AutomationRunRecord(
                     scheduled_for=f"{now} [{scheduled_for}]",
@@ -103,3 +103,13 @@ class AutomationService:
         if ranked_topics:
             return f"{seed} inspired by current trend: {ranked_topics[0].topic}"
         return seed
+
+    def _resolve_timezone(self, timezone_name: str) -> ZoneInfo:
+        aliases = {
+            "Asia/Calcutta": "Asia/Kolkata",
+        }
+        normalized = aliases.get(timezone_name, timezone_name)
+        try:
+            return ZoneInfo(normalized)
+        except ZoneInfoNotFoundError:
+            return ZoneInfo("UTC")
