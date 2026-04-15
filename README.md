@@ -1,3 +1,13 @@
+---
+title: Reels Automation
+emoji: "🎬"
+colorFrom: orange
+colorTo: red
+sdk: docker
+app_port: 7860
+short_description: Automate daily Instagram Reels and YouTube Shorts with Claude, Higgsfield, and audience-fit trend targeting.
+---
+
 # Social Reels Automation
 
 This service helps automate a content workflow:
@@ -32,6 +42,7 @@ pip install -e .
 2. Copy `.env.example` to `.env` and fill in your secrets.
 3. Put your YouTube OAuth app secrets JSON at the path configured by `YOUTUBE_CLIENT_SECRETS_FILE`.
 4. Set `AUTOMATION_POST_TIMES` to two local times like `10:00,18:00`.
+5. For Hugging Face deployment, set `HF_REPO_ID` and optionally `HF_REPO_TYPE`.
 
 ## Run the API
 
@@ -42,6 +53,38 @@ uvicorn social_reels_automation.main:app --reload
 ```
 
 Then open [http://127.0.0.1:8000](http://127.0.0.1:8000) to use the website dashboard.
+
+## Deploy to Hugging Face
+
+Your snippet is close, but for a working hosted website this project should go to a Hugging Face `space`, not a `model`.
+
+Current Hugging Face docs show:
+
+- `upload_folder(..., repo_type="space")` uploads a whole app folder to a Space
+- Docker Spaces support custom containers like FastAPI apps
+
+I added:
+
+- [Dockerfile](D:/Scalar/social-reels-automation/Dockerfile) for Hugging Face Docker Spaces
+- [deploy_to_huggingface.py](D:/Scalar/social-reels-automation/scripts/deploy_to_huggingface.py) to automate repo creation and upload
+
+Run it like this:
+
+```powershell
+cd D:\Scalar\social-reels-automation
+$env:HF_TOKEN="your_huggingface_token"
+$env:HF_REPO_ID="Gosula16/Reels"
+$env:HF_REPO_TYPE="space"
+python .\scripts\deploy_to_huggingface.py
+```
+
+If you only want to store the code on the Hub and not host the site, you can set:
+
+```powershell
+$env:HF_REPO_TYPE="model"
+```
+
+That will upload the files, but it will not run the web app as a hosted site.
 
 ## Trigger a reel generation
 
