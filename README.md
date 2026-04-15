@@ -1,11 +1,11 @@
 ---
 title: Reels Automation
 emoji: "🎬"
-colorFrom: orange
+colorFrom: yellow
 colorTo: red
 sdk: docker
 app_port: 7860
-short_description: Automate daily Instagram Reels and YouTube Shorts with Claude, Higgsfield, and audience-fit trend targeting.
+short_description: Daily reels and shorts automation with AI.
 ---
 
 # Social Reels Automation
@@ -77,6 +77,16 @@ $env:HF_REPO_ID="Gosula16/Reels"
 $env:HF_REPO_TYPE="space"
 python .\scripts\deploy_to_huggingface.py
 ```
+
+## Fully automated hosting
+
+I also added GitHub Actions deployment in [.github/workflows/deploy-space.yml](D:/Scalar/social-reels-automation/.github/workflows/deploy-space.yml).
+
+Once you add the GitHub repository secret `HF_TOKEN`, every push to `main` will automatically redeploy the Space.
+
+Required GitHub secret:
+
+- `HF_TOKEN`: a Hugging Face write token from [https://huggingface.co/settings/tokens](https://huggingface.co/settings/tokens)
 
 If you only want to store the code on the Hub and not host the site, you can set:
 

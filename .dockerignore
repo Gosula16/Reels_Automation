@@ -1,0 +1,9 @@
+.git
+.github
+.venv
+__pycache__
+*.pyc
+generated
+.env
+youtube_token.json
+client_secrets.json

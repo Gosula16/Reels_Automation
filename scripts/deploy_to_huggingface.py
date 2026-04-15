@@ -15,18 +15,19 @@ def main() -> None:
     repo_type = os.getenv("HF_REPO_TYPE", "space")
     space_sdk = os.getenv("HF_SPACE_SDK", "docker")
 
+    api = HfApi(token=token)
     if token:
         login(token=token)
     else:
-        login()
+        # Reuse cached local auth if available; avoid interactive prompts for CI or scripted deploys.
+        api.whoami()
 
-    api = HfApi()
     create_kwargs: dict[str, object] = {"repo_id": repo_id, "repo_type": repo_type, "exist_ok": True}
     if repo_type == "space":
         create_kwargs["space_sdk"] = space_sdk
     api.create_repo(**create_kwargs)
 
-    upload_folder(
+    api.upload_folder(
         folder_path=str(ROOT),
         repo_id=repo_id,
         repo_type=repo_type,
